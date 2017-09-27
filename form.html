@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script
+	type='text/javascript'
+	src="js/jquery.js"
+></script>
+<script type='text/javascript'>
+	function createEmp() {
+		$("#loader").show();
+		var obj = {
+			employeeId : 0,
+			firstname : $('#firstname').val(),
+			lastname : $('#lastname').val()
+		};
+		alert(JSON.stringify(obj));
+		$.ajax({
+			url : "saveEmpWS.do",
+			type : "POST",
+			dataType : "JSON",
+			data : JSON.stringify(obj),
+			contentType : "application/json",
+			mimeType : "application/json",
+			success : function(data) {
+				alert('success');
+				$("#loader").hide();
+			},
+			error : function(data, status, er) {
+				alert('error');
+				$("#loader").hide();
+			}
+		});
+	}
+</script>
+</head>
+<body onload="listEmployee()">
+	<div
+		id="loader"
+		style="display: none"
+	>
+
+		<img src="image/ajax-loader.gif" />
+	</div>
+	First Name:
+	<input
+		type="text"
+		id="firstname"
+	>
+	<BR /> Last Name:
+	<input
+		type="text"
+		id="lastname"
+	>
+	<BR />
+
+	<input
+		type="button"
+		value="Save"
+		onclick="createEmp()"
+	/>
+</body>
+</html>
